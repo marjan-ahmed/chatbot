@@ -1,10 +1,9 @@
 import streamlit as st
 import requests
-import json
 
 
 BASE_URL = "https://openrouter.ai/api/v1"
-API_KEY = "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"  
+API_KEY = "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" or "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"  
 
 
 if "messages" not in st.session_state:
@@ -16,7 +15,7 @@ def fetch_ai_response(base_url, api_key, model, prompt):
         response = requests.post(
             url=f"{base_url}/chat/completions",
             headers={
-                "Authorization": f"Bearer {api_key}",
+                "Authorization": f"Bearer {api_key}",         
             },
             json={
                 "model": model,
@@ -34,17 +33,17 @@ def fetch_ai_response(base_url, api_key, model, prompt):
             return data['choices'][0]['message']['content']
         else:
             st.error("Unexpected API response format.")
-            return "⚠️ Sorry, I couldn't understand the response."
+            return "Sorry, I couldn't understand the response."
 
     except requests.exceptions.RequestException as e:
         st.error(f"Network error: {e}")
-        return "⚠️ Network error occurred. Please try again."
+        return "Network error occurred. Please try again."
     except KeyError as e:
         st.error(f"Response parsing error: {e}")
-        return "⚠️ Failed to parse response."
+        return "Failed to parse response."
     except Exception as e:
         st.error(f"Unexpected error: {e}")
-        return "⚠️ Something went wrong."
+        return "Something went wrong."
 
 
 def main():
@@ -81,7 +80,7 @@ def main():
 
         
         if selected_model_name == "DeepSeek":
-            model_id = "deepseek/deepseek-r1-0528-qwen3-8b:free"
+            model_id = "deepseek/deepseek-chat-v3-0324:free"
         elif selected_model_name == "Gemini":
             model_id = "google/gemini-2.0-flash-exp:free"
         else:
