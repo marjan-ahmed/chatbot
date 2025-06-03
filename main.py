@@ -16,16 +16,12 @@ def fetch_ai_response(base_url, api_key, model, prompt):
         response = requests.post(
             url=f"{base_url}/chat/completions",
             headers={
-                "Authorization": f"Bearer {api_key}",        
+                "Authorization": f"Bearer {api_key}",
             },
             json={
                 "model": model,
                 "messages": st.session_state.messages + [
-                    {
-                        "role": "user", 
-                        "content": prompt
-                     
-                     }
+                    {"role": "user", "content": prompt}
                 ]
             }
         )
@@ -62,7 +58,7 @@ def main():
         key="model_selector"
     )
 
-    st.write(f"✅ Model: **{selected_model_name}**")
+    st.write(f"✅ You selected: **{selected_model_name}**")
 
     
     if st.button("🧹 Clear Chat History"):
