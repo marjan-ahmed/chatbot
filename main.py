@@ -1,10 +1,12 @@
 import streamlit as st
 import requests
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-BASE_URL = "https://openrouter.ai/api/v1"
-API_KEY = "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" or "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"  
-
+BASE_URL = os.getenv("BASE_URL")
+API_KEY =  os.getenv("API_KEY")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -80,11 +82,11 @@ def main():
 
         
         if selected_model_name == "DeepSeek":
-            model_id = "deepseek/deepseek-chat-v3-0324:free"
+            model_id = os.getenv("DEEP_SEEK_MODEL")
         elif selected_model_name == "Gemini":
-            model_id = "google/gemini-2.0-flash-exp:free"
+            model_id = os.getenv("GEMINI_MODEL")
         else:
-            model_id = "mistralai/mistral-small-24b-instruct-2501:free"
+            model_id = os.getenv("MISTRAL_MODEL")
 
         
         with st.chat_message("assistant"):
